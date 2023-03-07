@@ -3,10 +3,12 @@ import Message from "../model/message.js";
 
 class messageController {
 
+    /* ------------------- */
     // get all Messages
+    /* ------------------- */
     static async getMessage(req, res) {
         try {
-            const messages= await Message.find();
+            const messages = await Message.find();
             res.status(200).json({
                 data: messages
             });
@@ -16,11 +18,12 @@ class messageController {
             errorFunc(res, messageContent, status);
         }
     }
-
-    // // get one Message
+    /* ------------------- */
+    // get one Message
+    /* ------------------- */
     static async getoneMessage(req, res) {
         try {
-            const { id } = req.params; // using ES6
+            const { id } = req.params;
             const message = await Message.findOne({ _id: id });
             if (!message) {
                 return res.status(404).json({
@@ -38,11 +41,15 @@ class messageController {
             errorFunc(res, messageContent, status);
         }
     }
+
+    /* ------------------- */
     // Send message
+    /* ------------------- */
+
     static async SendMessage(req, res) {
         try {
-            const { username, email, message } = req.body;
-            const newMessage = await Message.create({ username, email ,message});
+            const { names, phone, email, message } = req.body;
+            const newMessage = await Message.create({ names, phone, email, message });
             res.status(201).json({
                 message: "New Message sent successfully",
                 data: newMessage
@@ -54,16 +61,15 @@ class messageController {
         }
     }
 
+    /* ------------------- */
     // delete message
+    /* ------------------- */
+
     static async deleteMessage(req, res) {
         try {
             const { id } = req.params;
-            // find Message
-
             const _id = id
-
             const messageToBeDeleted = await Message.findByIdAndDelete(_id)
-
             if (!messageToBeDeleted) {
                 return res.status(404).json({
                     message: `Message with id: ${id} was not found`

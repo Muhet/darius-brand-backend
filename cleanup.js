@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 
 // Define the MongoDB connection string and database name
-const uri = 'mongodb+srv://niyof97:mybrand123@cluster0.t5ivqjz.mongodb.net/mybrandtest?retryWrites=true';
+const uri = 'mongodb+srv://nodejs:test1234@nodetuts.drtr3cz.mongodb.net/nodeDBtest?retryWrites=true&w=majority';
 
 mongoose.set('strictQuery', false);
 const cleanup = async () => {

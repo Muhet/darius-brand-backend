@@ -21,7 +21,8 @@ const signupController = async (req, res) => {
     const status = 500;
     errorFunc(res, messageContent, status);
   }
-
+  
+ 
 };
 
 export default signupController;
