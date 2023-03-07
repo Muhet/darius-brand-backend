@@ -25,9 +25,7 @@ app.use(cookieParser());
 
 // route - home route
 app.get("/", (req, res) => {
-    res.status(200).send(`
-  <h1 style="text-align: center; color: #CCD6F6; margin-top: 20vh; background: #0A192F; padding: 150px;">APIs for my Brand</h1>
-  `);
+    res.status(200).send(``);
 });
 
 // const db = process.env.NODE_ENV === "test" ? "mybrandtest" : "mybrand3";

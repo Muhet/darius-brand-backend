@@ -2,9 +2,11 @@ import bcrypt from 'bcrypt';
 import User from '../model/user.js';
 import errorFunc from '../utils/errorFunc.js';
 
+
 const signupController = async (req, res) => {
-  const { firstname, lastname, email, password } = req.body;
+ 
   try {
+    const { firstname, lastname, email, password } = req.body;  
     // hash password
     const hashedPassword = await bcrypt.hash(password, 10);
 

@@ -2,7 +2,7 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import User from "../model/user.js";
 
-const secret = "faustin";
+const secret = "darius";
 
 const loginController = async (req, res) => {
     // email and password from the body
