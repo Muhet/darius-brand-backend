@@ -1,21 +1,22 @@
 import mongoose from "mongoose";
 
+
 const blogSchema = new mongoose.Schema({
   title: {
     type: String,
-    required: true
+    required: "title of blog is missing"
   },
   category: {
       type:String,
-      required:true
+      required:"Category of blog is missing"
   },
   image: {
       type:String,
-      required:true
+      required:"Image of blog is missing"
   },
   description: {
     type: String,
-    required: true
+    required: "Description of blog is missing"
   },
 
   createdAt: {

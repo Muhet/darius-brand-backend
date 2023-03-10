@@ -8,13 +8,11 @@ const messageSchema = new mongoose.Schema({
     phone: {
         type: String,
         required: true,
-        unique: true,
         lowercase: true
     },
     email: {
         type: String,
         required: true,
-        unique: true,
         lowercase: true
     },
     message: {
