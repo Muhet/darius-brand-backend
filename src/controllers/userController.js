@@ -7,13 +7,11 @@ class userController {
   static async getUsers(req, res) {
     try {
       const users = await User.find();
-      res.status(200).json({
-        data: users
-      });
+      res.status(200).json({ 'status': 'success', 'code': 200, 'message': 'fetch successful', data: users });
+      
     } catch (error) {
-      const messageContent = error.message;
-      const status = 500;
-      errorFunc(res, messageContent, status);
+      console.log(error)
+      res.status(500).json({ 'status': 'fail', 'code': 500, 'message': "error", "data": null });
     }
   }
 
@@ -23,41 +21,38 @@ class userController {
       const { id } = req.params; // using ES6
       const user = await User.findOne({ _id: id });
       if (!user) {
-        return res.status(404).json({
-          message: `User with id: ${id} was not found`
-        });
+        return res.status(404).json({'status': 'fail', 'code': 404, 'message': `User with id: ${id} was not found` });
+       
       } else {
-        return res.status(200).json({
-          data: user
-        });
+        res.status(200).json({'status': 'success', 'code': 200, 'message': 'User fetched successfully', data: user });
+        
       }
     } catch (error) {
-      console.log(error.message);
-      const messageContent = error.message;
-      const status = 500;
-      errorFunc(res, messageContent, status);
+      console.log(error)
+      res.status(500).json({'status': 'fail', 'code': 500, 'message': "error", "data": null });
     }
   }
   // create user
   static async createUser(req, res) {
-    console.log(req)
+    const { firstname, lastname, email, password } = req.body;
     try {
-      const { firstname, lastname, email, password } = req.body;  
+
+      if (!(firstname || lastname || email || password)) {
+        res.status(400).json({ 'status': 'fail', 'code': 400, 'message': "Please fill all required data", "data": null });
+        return;
+      }
       // hash password
       const hashedPassword = await bcrypt.hash(password, 10);
-  
+
       // create our new user
       const newUser = await User.create({ firstname, lastname, email, password: hashedPassword });
-      res.status(201).json({
-        message: "New User created successfully",
-        data: newUser
-      });
+      res.status(200).json({ 'status': 'success', 'code': 200, 'message': 'New User created successfully', data: newUser });
+
     } catch (error) {
-      const messageContent = error.message;
-      const status = 500;
-      errorFunc(res, messageContent, status);
+      console.log(error)
+      res.status(500).json({ 'status': 'fail', 'code': 500, 'message': "error", "data": null });
     }
-      
+
   }
 
   // update user
@@ -73,21 +68,15 @@ class userController {
       const userUpdated = await User.findByIdAndUpdate(_id, { firstname, lastname, email, password: hashedPassword }, { new: true });
 
       if (!userUpdated) {
-        return res.status(404).json({
-          message: `User with id: ${id} was not found`
-        });
+        return res.status(404).json({ 'status': 'fail', 'code': 404, 'message': `User with id: ${id} was not found` });
       } else {
 
-        return res.status(200).json({
-          message: "User updated Successfully",
-          data: userUpdated
-        });
+        return res.status(200).json({ 'status': 'success', 'code': 200, 'message': "User updated Successfully", data: userUpdated });
       }
 
     } catch (error) {
-      const messageContent = error.message;
-      const status = 500;
-      errorFunc(res, messageContent, status);
+      console.log(error)
+      res.status(500).json({ 'status': 'fail', 'code': 500, 'message': "error", "data": null });
     }
   }
 
@@ -96,24 +85,20 @@ class userController {
     try {
       const { id } = req.params;
       // find user
-      
+
       const _id = id
 
       const userToBeDeleted = await User.findByIdAndDelete(_id)
 
       if (!userToBeDeleted) {
-        return res.status(404).json({
-          message: `User with id: ${id} was not found`
-        });
+        return res.status(404).json({'status':'fail', 'code': 404, 'message': `User with id: ${id} was not found`});
       } else {
-        return res.status(200).json({
-          message: "User deleted successfully",
+        return res.status(200).json({'status':'success', 'code': 200,'message': "User deleted successfully",
         });
       }
     } catch (error) {
-      const messageContent = error.message;
-      const status = 500;
-      errorFunc(res, messageContent, status);
+      console.log(error)
+      res.status(500).json({ 'status': 'fail', 'code': 500, 'message': "error", "data": null });
     }
   }
 }
