@@ -20,11 +20,10 @@ const loginController = async (req, res) => {
             const passwordMatch = await bcrypt.compare(password, user.password);
 
             if (!passwordMatch) {
-                return res.status(400).json({ message: "Please check your credentials carefully" });
+                return res.status(400).json({ message: "Your username or Password is incorrect try again!!" });
             } else {
                 // create a JWT and send it back to the client as an HTTP-only cookie
                 const token = jwt.sign({ id: user._id }, secret);
-
                 res.cookie("token", token, {
                     httpOnly: true,
                     secure: true, // I must remember to set this to true in production
