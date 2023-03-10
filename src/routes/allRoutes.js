@@ -3,7 +3,7 @@ import blogRoute from "./blogRoute.js"
 import signupRoute from "./signupRoute.js"
 import messageRoute from "./messageRoute.js";
 import loginRoute from "./loginRoute.js";
-import draftblogRoute from "./draftblogRoute.js";
+import projectRoute from "./projectRoute.js";
 import getusersRoute from "./getusersRoute.js";
 import logoutRoute from "./logoutRoute.js";
 
@@ -14,7 +14,7 @@ router.use("/blogs", blogRoute)
 router.use("/signup",signupRoute )
 router.use("/message",messageRoute)
 router.use("/login", loginRoute)
-router.use("/draft",draftblogRoute)
+router.use("/project",projectRoute)
 router.use("/users",getusersRoute)
 router.use("/logout",logoutRoute)
 

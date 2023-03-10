@@ -1,21 +1,17 @@
 import mongoose from "mongoose";
 
-const messageSchema = new mongoose.Schema({
-    names: {
+const ProjectSchema = new mongoose.Schema({
+    title: {
         type: String,
+        unique: true,
         required: true
     },
-    phone: {
+    image: {
         type: String,
         required: true,
-        lowercase: true
+        
     },
-    email: {
-        type: String,
-        required: true,
-        lowercase: true
-    },
-    message: {
+    description: {
         type: String,
         required: true,
         minLength: 6
@@ -27,6 +23,6 @@ const messageSchema = new mongoose.Schema({
 });
 
 
-const Message = mongoose.model("Message", messageSchema)
+const Project = mongoose.model("Project", ProjectSchema)
 
-export default Message
+export default Project

@@ -6,11 +6,12 @@ import authMiddleware from "../middleware/authMiddleware.js";
 
 const router = express.Router();
 
-router.post("/",messageContoller.SendMessage)
-router.get("/",  authMiddleware,messageContoller.getMessage);
-router.get("/:id", authMiddleware, messageContoller.getoneMessage);
-router.delete("/:id", authMiddleware, messageContoller.deleteMessage);
+router.post("/message/create",messageContoller.SendMessage)
+router.get("/messages",  messageContoller.getMessage);
+router.get("/message/:id",  messageContoller.getoneMessage);
+router.delete("/message/delete/:id",  messageContoller.deleteMessage);
 
 
 
 export default router
+
