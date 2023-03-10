@@ -4,15 +4,18 @@ import errorFunc from "../utils/errorFunc.js";
 class blogController {
   // get all blogs
   static async getBlogs(req, res) {
+    const allBlogs = req.body;
     try {
-      const blogs = await Blog.find();
-      res.status(200).json({
-        data: blogs
-      });
+if(!allBlogs){
+res.status(404).json({"status": "failled", "code": 404, "message": "No blog in DataBase"});
+return;
+}
+  const blogs = await Blog.find({}).sort({_id: -1}).limit(10);
+      res.status(200).json({"status": "success","code": 200,"message": "All Blog posts", data: blogs});
+        
     } catch (error) {
-      const messageContent = error.message;
-      const status = 500;
-      errorFunc(res, messageContent, status);
+      console.log(error)
+      res.status(500).json({'status': 'fail','code': 500, "message" : "Error", "data": null});
     }
   }
 
@@ -22,35 +25,34 @@ class blogController {
       const { id } = req.params; // using ES6
       const blog = await Blog.findOne({ _id: id });
       if (!blog) {
-        return res.status(404).json({
-          message: `Blog with id: ${id} was not found`
-        });
+        return res.status(400).json({'status': 'fail','code': 400,'message' : "Please fill all required data", "data": null});
+         
       } else {
-        return res.status(200).json({
-          data: blog
-        });
+        res.status(200).json({"status": "success","code": 200,"message": "Blog post fetched!!", "data": blog});
+         
       }
     } catch (error) {
-      console.log(error.message);
-      const messageContent = error.message;
-      const status = 500;
-      errorFunc(res, messageContent, status);
+      console.log(error.message)
+      res.status(500).json({'status': 'fail','code': 500, "message" : "Error", "data": null});
     }
   }
   // create blog
   static async createBlog(req, res) {
-    console.log(req)
+    
+   const newBlogPost = req.body;
+ 
     try {
-      const { title, category, image, description } = req.body;
-      const newBlog = await Blog.create({ title, category, image, description});
-      res.status(201).json({
-        message: "New blog created successfully",
-        data: newBlog
-      });
+      //validation
+      if(!(newBlogPost)){
+        res.status(400).json({'status': 'fail','code': 400,'message' : "Please fill all required data", "data": null});
+        return;
+      }
+      const newBlog = await Blog.create([newBlogPost]);
+      res.status(200).json({"status": "success","code": 200,"message": "Blog post created !!", data: newBlog});
+      
     } catch (error) {
-      const messageContent = error.message;
-      const status = 500;
-      errorFunc(res, messageContent, status);
+      console.log(error)
+      res.status(500).json({'status': 'fail','code': 500, "message" : "Error", "data": null});
     }
   }
 
@@ -67,23 +69,19 @@ class blogController {
       const blogUpdated = await Blog.findByIdAndUpdate(_id, { title, category, image, description }, { new: true });
 
       if (!blogUpdated) {
-        return res.status(404).json({
-          message: `Blog with id: ${id} was not found`
-        });
+        return res.status(404).json({ "status": "failed!!","code": 404,"message": `Blog with id: ${id} was not found`});
       } else {
 
-        return res.status(200).json({
-          message: "Blog updated Successfully",
-          data: blogUpdated
-        });
+        res.status(200).json({"status": "success","code": 200,"message": "Blog updated Successfully",  data: blogUpdated});
+                return;
+         
       }
 
     } catch (error) {
-      const messageContent = error.message;
-      const status = 500;
-      errorFunc(res, messageContent, status);
+      res.status(500).json({'status': 'fail','code': 500, "message" : "server error", "data": null});        
     }
-  }
+    }
+  
 
   // delete blog
   static async deleteBlog(req, res) {
@@ -96,18 +94,14 @@ class blogController {
       const blogToBeDeleted = await Blog.findByIdAndDelete(_id)
 
       if (!blogToBeDeleted) {
-        return res.status(404).json({
-          message: `Blog with id: ${id} was not found`
+        return res.status(404).json({"status":"fail","cade":404, "message": `Blog with id: ${id} was not found`
         });
       } else {
-        return res.status(200).json({
-          message: "Blog deleted successfully",
+        return res.status(200).json({"status":"success","code": 200," message": "Blog deleted successfully",
         });
       }
     } catch (error) {
-      const messageContent = error.message;
-      const status = 500;
-      errorFunc(res, messageContent, status);
+      res.status(500).json({'status': 'fail','code': 500, "message" : "server error", "data": null}); 
     }
   }
 }
