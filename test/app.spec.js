@@ -77,6 +77,36 @@ describe("Blog API", () => {
 
   });
 
+   // Test the PUT /api/blogs/update/:id route
+   describe("PUT /api/blog/update/:id", () => {
+    it("should update an existing blog", (done) => {
+      const blogId = "64111c016a32f8c3fc43e58b";
+      const updatedBlog = {
+        title: "Updated test blog",
+        category: "Updated test category",
+        image: "updated-test-image.png",
+        description: "Updated test description",
+      };
+      chai
+        .request(app)
+        .put(`/api/blog/update/${blogId}`)
+        .send(updatedBlog)
+        .end((err, res) => {
+          expect(res).to.have.status(200);
+          expect(res.body).to.be.an("object");
+
+          expect(res.body.data).to.have.property('title').eql('Updated test blog');
+          expect(res.body.data).to.have.property('category').eql('Updated test category');
+          expect(res.body.data).to.have.property('image').eql('updated-test-image.png');
+          expect(res.body.data).to.have.property('description').eql('Updated test description');
+
+
+          
+        });
+        done();
+    });
+  });
+
   // Test the POST /api/project/create route
   describe("POST /project/create", () => {
     it("should create a new project", (done) => {
