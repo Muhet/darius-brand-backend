@@ -1,9 +1,5 @@
 name: gitActions
 
-cache:
-  paths:
-  - node_modules/
-
 on:
   pull_request:
   push:
