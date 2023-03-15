@@ -8,7 +8,21 @@ chai.should();
 
 describe("Blog API", () => {
 
-  describe("POST /api/blogs/create", () => {
+ // Test the GET /api/blogs route
+ describe("GET /api/blogs", () => {
+  it("should return all blogs", (done) => {
+    chai
+      .request(app)
+      .get("/api/blogs")
+      .end((err, res) => {
+        expect(res).to.have.status(200);
+        /* console.log(res.body['data']); */
+        done();
+      });
+  });
+});
+
+  describe("POST /blogs/create", () => {
     it("should create a new project", (done) => {
       const newBlog = {
         title: "Test Title",
@@ -41,7 +55,7 @@ describe("Blog API", () => {
   });
 
   // Test the POST /api/project/create route
-  describe("POST /api/project/create", () => {
+  describe("POST /project/create", () => {
     it("should create a new project", (done) => {
       const newProject = {
         title: "Test Project2",
