@@ -44,7 +44,7 @@ let con = null;
         useUnifiedTopology: true
     });
 } */ /* else { */
-  con = mongoose.connect(process.env.MONGODB_URL, {
+  con = mongoose.connect("mongodb+srv://nodejs:test1234@nodetuts.drtr3cz.mongodb.net/nodeDB?retryWrites=true&w=majority", {
         useNewUrlParser: true,
         useUnifiedTopology: true
     });
