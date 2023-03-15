@@ -1,7 +1,7 @@
 import app from "../src/app.js";
 import chai, { expect } from "chai";
 import chaiHttp from "chai-http";
-import assert from "assert";
+
 
 chai.use(chaiHttp);
 chai.should();
@@ -123,4 +123,48 @@ describe("Blog API", () => {
     });
   });
 
+});
+
+
+describe("Project API", () => {
+
+  
+  const newBlog = {
+    title: "Test blog",
+    image: "test-image.png",
+    description: "Test description",
+  };
+  // Test the GET /api/Project route
+  describe("GET /api/Project", () => {
+    it("should return all project", (done) => {
+      chai
+        .request(app)
+        .get("/api/Project")
+        .end((err, res) => {
+          expect(res).to.have.status(200);
+          console.log(res.body['data']);
+          done();
+        });
+    });
+  });
+
+  // Test the GET /api/project/:id route
+  describe("GET /api/project/:id", () => {
+
+    it("should return a single blog", (done) => {
+      const projectId = "6410c37d5f9ec1efaa4a5b3c";
+      chai
+        .request(app)
+        .get(`/api/project/${projectId}`)
+        .end((err, res) => {
+          expect(res).to.have.status(200);
+          expect(res.body).to.be.an("object");
+          res.body.data['title'];
+          res.body.data['image'];
+          res.body.data['description'];
+          res.body.data['createdAt'];
+          done();
+        });
+    });
+  });
 });
