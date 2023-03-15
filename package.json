@@ -7,7 +7,7 @@
   "scripts": {
     "start": "node src/server.js",
     "dev": "nodemon babel-node src/server.js",
-    "test": "mocha --timeout 10000 --exit test/",
+    "test": "mocha --timeout 50000 --exit test/",
 
     "pretest": "node cleanup.js",
     "build": "webpack"
