@@ -1,50 +1,64 @@
 import Comment from "../model/comment.js";
-import commentRoute from "../model/commentroute.js";
-import errorFunc from "../utils/errorFunc.js";
+
+import Joi from "joi";
 
 // Create a comment
+export const createComment = async (req, res, next) => {
+  try {
+    const { error } = validateComment(req.body);
+    if (error) {
+      return res.status(400).send(error.details[0].message);
+    }
 
-app.post('/blog-posts/:postId/comments', (req, res) => {
-    const content = req.body.content;
-    const user = req.user._id;
-    const blogPost = req.params.postId;
-  
     const comment = new Comment({
-      content: content,
-      user: user,
-      blogPost: blogPost
+      blog: req.params.blogId,
+      commentBody: req.body.commentBody,
     });
-  
-    comment.save((err) => {
-      if (err) {
-        console.error(err);
-        res.status(500).send('Error saving comment');
-      } else {
-        res.redirect(`/blog-posts/${blog}`);
-      }
+
+    const savedComment = await comment.save();
+
+    res.status(201).json(savedComment);
+  } catch (err) {
+    next(err);
+  }
+};
+
+// Get all comments for a blog
+export const getComments = async (req, res, next) => {
+  try {
+    const comments = await Comment.find({ blog: req.params.blogId });
+
+    res.status(200).json(comments);
+  } catch (err) {
+    next(err);
+  }
+};
+
+// Delete a comment
+export const deleteComment = async (req, res, next) => {
+  try {
+    const comment = await Comment.findOne({
+      _id: req.params.commentId,
+      blog: req.params.blogId,
     });
+
+    if (!comment) {
+      return res.status(404).send("Comment not found");
+    }
+
+    await comment.remove();
+
+    res.status(200).send("Comment deleted successfully");
+  } catch (err) {
+    next(err);
+  }
+};
+
+// Joi validation schema for comments
+function validateComment(comment) {
+  const schema = Joi.object({
+    commentBody: Joi.string().min(10).max(2000).required(),
   });
-  app.get('/blog-posts/:postId', (req, res) => {
-    const blogId = req.params.postId;
-  
-    Blog.findById(blogId)
-      .populate('user')
-      .exec((err, blogPost) => {
-        if (err) {
-          console.error(err);
-          res.status(500).send('Error retrieving blog post');
-        } else {
-          Comment.find({ blogPost: blogId })
-            .populate('user')
-            .exec((err, comments) => {
-              if (err) {
-                console.error(err);
-                res.status(500).send('Error retrieving comments');
-              } else {
-                res.render('blog-post', { blogPost: blogPost, comments: comments });
-              }
-            });
-        }
-      });
-  });
-    
+
+  return schema.validate(comment);
+}

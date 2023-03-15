@@ -1,5 +1,5 @@
 import Blog from "../model/blog.js";
-import errorFunc from "../utils/errorFunc.js";
+
 
 class blogController {
   // get all blogs

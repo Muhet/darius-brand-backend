@@ -60,7 +60,7 @@
         }
       }
     },
-    "/signup": {
+    "/user/create": {
       "post": {
         "tags": [
           "User"
