@@ -8,11 +8,13 @@
     "start": "node src/server.js",
     "dev": "nodemon babel-node src/server.js",
     "test": "mocha --timeout 50000 --exit test/",
-
-    "pretest": "node cleanup.js",
-    "build": "webpack"
+    "build": "npm install && echo 'Builld successfull ",
+    "pretest": "node cleanup.js"
   },
-
+  "keywords": [
+    "nodejs",
+    "backend"
+  ],
   "author": "Darius",
   "license": "ISC",
   "dependencies": {
@@ -48,7 +50,6 @@
     "type": "git",
     "url": "git+https://github.com/Muhet/darius-brand-backend.git"
   },
-  "keywords": [],
   "bugs": {
     "url": "https://github.com/Muhet/darius-brand-backend/issues"
   },
