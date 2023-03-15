@@ -2,7 +2,7 @@ name: gitActions
 
 cache:
   paths:
-    - node_modules/
+  - node_modules/
 
 on:
   pull_request:
