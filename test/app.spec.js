@@ -69,10 +69,6 @@ describe("Blog API", () => {
           expect(res.body.data[0]).to.have.property('image').eql('test-image.png');
           expect(res.body.data[0]).to.have.property('description').eql('Test description');
           newProject._id = res.body.data[0]._id;
-          console.log('########################################################')
-          console.log(res.status)
-          console.log('########################################################')
-          //*  */
 
         });
       done();
@@ -80,51 +76,52 @@ describe("Blog API", () => {
 
   });
 
+
+  // Test the PUT /api/blogs/update/:id route
+  describe("PUT /api/blog/update/:id", () => {
+    it("should update an existing blog", (done) => {
+      const blogId = "64111c016a32f8c3fc43e58b";
+      const updatedBlog = {
+        title: "Updated test blog",
+        category: "Updated test category",
+        image: "updated-test-image.png",
+        description: "Updated test description",
+      };
+      chai
+        .request(app)
+        .put(`/api/blog/update/${blogId}`)
+        .send(updatedBlog)
+        .end((err, res) => {
+          expect(res).to.have.status(200);
+          expect(res.body).to.be.an("object");
+
+          expect(res.body.data).to.have.property('title').eql('Updated test blog');
+          expect(res.body.data).to.have.property('category').eql('Updated test category');
+          expect(res.body.data).to.have.property('image').eql('updated-test-image.png');
+          expect(res.body.data).to.have.property('description').eql('Updated test description');
+
+
+
+        });
+      done();
+    });
+  });
   // Test the DELETE api/blogs/delete/:id route
 
   describe("DELETE /api/blog/delete/:id", () => {
-    
+
     it("should delete an existing blog", (done) => {
-      const blogIdToDelete ="64111c016a32f8c3fc43e58b";
+      const blogIdToDelete = "64111c016a32f8c3fc43e58b";
       chai.request(app)
         .delete(`/api/blog/delete/${blogIdToDelete}`)
         .end((err, res) => {
           expect(res).to.have.status(200);
-         });
-        done();
+        });
+      done();
     });
   });
 
-// Test the PUT /api/blogs/update/:id route
-describe("PUT /api/blog/update/:id", () => {
-  it("should update an existing blog", (done) => {
-    const blogId = "64111c016a32f8c3fc43e58b";
-    const updatedBlog = {
-      title: "Updated test blog",
-      category: "Updated test category",
-      image: "updated-test-image.png",
-      description: "Updated test description",
-    };
-    chai
-      .request(app)
-      .put(`/api/blog/update/${blogId}`)
-      .send(updatedBlog)
-      .end((err, res) => {
-        expect(res).to.have.status(200);
-        expect(res.body).to.be.an("object");
-
-        expect(res.body.data).to.have.property('title').eql('Updated test blog');
-        expect(res.body.data).to.have.property('category').eql('Updated test category');
-        expect(res.body.data).to.have.property('image').eql('updated-test-image.png');
-        expect(res.body.data).to.have.property('description').eql('Updated test description');
-
-
-
-      });
-    done();
-  });
 });
-
 describe("Project API", () => {
 
 
@@ -180,8 +177,8 @@ describe("POST /project/create", () => {
       .post("/api/project/create")
       .send(newProject)
       .end((err, res) => {
-
         expect(res).to.have.status(200);
+        expect(err).to.have.status(500);
         expect(res.body).to.be.an("object");
         expect(res.body.data[0]).to.have.property('title').eql('Test Project2');
         expect(res.body.data[0]).to.have.property('image').eql('test-image.png2');
@@ -194,5 +191,46 @@ describe("POST /project/create", () => {
 
 });
 
+// Test the PUT /api/project/update/:id route
+describe("PUT /project/update/:id", () => {
+  it("should update an existing Project", (done) => {
+    const projectId = "64111c016a32f8c3fc43e58b";
+    const updatedProject = {
+      title: "Updated test project",
+      image: "updated-test-image.png",
+      description: "Updated test description",
+    };
+    chai
+      .request(app)
+      .put(`/api/project/update/${projectId}`)
+      .send(updatedProject)
+      .end((err, res) => {
+        expect(res).to.have.status(200);
+        expect(err).to.have.status(500);
+        expect(res.body).to.be.an("object");
+        expect(res.body.data).to.have.property('title').eql('Updated test project');
+        expect(res.body.data).to.have.property('image').eql('updated-test-image.png');
+        expect(res.body.data).to.have.property('description').eql('Updated test description');
 
+      });
+    done();
+  });
 });
+
+// Test the DELETE api/project/delete/:id route
+
+describe("DELETE /api/project/delete/:id", () => {
+
+  it("should delete an existing project", (done) => {
+    const projectIdToDelete = "64111c016a32f8c3fc43e58b";
+    chai.request(app)
+      .delete(`/api/project/delete/${projectIdToDelete}`)
+      .end((err, res) => {
+        expect(res).to.have.status(200);
+        expect(err).to.have.status(500);
+      });
+    done();
+  });
+});
+
+
