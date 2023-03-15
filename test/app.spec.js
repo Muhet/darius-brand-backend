@@ -44,8 +44,9 @@ describe("Blog API", () => {
           res.body.data['image'];
           res.body.data['description'];
           res.body.data['createdAt'];
-          done();
+          
         });
+        done();
     });
   });
 
@@ -71,10 +72,10 @@ describe("Blog API", () => {
           expect(res.body.data[0]).to.have.property('image').eql('test-image.png2');
           expect(res.body.data[0]).to.have.property('description').eql('Test description2');
           newBlog._id = res.body.data[0]._id;
-
+/* 
           console.log('########################################################')
           console.log(res.body['data'])
-          console.log('########################################################')
+          console.log('########################################################') */
           done();
         });
     });
@@ -184,7 +185,7 @@ describe("Project API", () => {
         .post("/api/project/create")
         .send(newProject)
         .end((err, res) => {
-         
+           
          expect(res).to.have.status(200);
           expect(res.body).to.be.an("object");
           expect(res.body.data[0]).to.have.property('title').eql('Test Project2');
