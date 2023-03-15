@@ -107,6 +107,27 @@ describe("Blog API", () => {
     });
   });
 
+  describe("Project API", () => {
+
+
+    const newBlog = {
+      title: "Test blog",
+      image: "test-image.png",
+      description: "Test description",
+    };
+    // Test the GET /api/Project route
+    describe("GET /api/Project", () => {
+      it("should return all project", (done) => {
+        chai
+          .request(app)
+          .get("/api/Project")
+          .end((err, res) => {
+            expect(res).to.have.status(200);
+          });
+          done();
+      });
+    });
+  });
   // Test the GET /api/project/:id route
   describe("GET /api/project/:id", () => {
 
