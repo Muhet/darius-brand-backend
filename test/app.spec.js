@@ -44,9 +44,9 @@ describe("Blog API", () => {
           res.body.data['image'];
           res.body.data['description'];
           res.body.data['createdAt'];
-          
+          done();
         });
-        done();
+        
     });
   });
 
