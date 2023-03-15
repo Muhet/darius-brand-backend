@@ -23,6 +23,28 @@ describe("Blog API", () => {
   });
 });
 
+ // Test the GET /api/blogs/:id route
+ describe("GET /api/blog/:id", () => {
+
+  it("should return a single blog", (done) => {
+    const blogId = "64111c016a32f8c3fc43e58b";
+    chai
+      .request(app)
+      .get(`/api/blog/${blogId}`)
+      .end((err, res) => {
+        expect(res).to.have.status(200);
+        expect(res.body).to.be.an("object");
+        
+        res.body.data['title'];
+        res.body.data['category'];
+        res.body.data['image'];
+        res.body.data['description'];
+        res.body.data['createdAt'];
+       });
+       done(); 
+  });
+});
+
   describe("POST /blogs/create", () => {
     it("should create a new project", (done) => {
       const newBlog = {
