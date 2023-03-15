@@ -17,8 +17,9 @@ describe("Blog API", () => {
       .end((err, res) => {
         expect(res).to.have.status(200);
         /* console.log(res.body['data']); */
-        done();
+        
       });
+      done();
   });
 });
 
