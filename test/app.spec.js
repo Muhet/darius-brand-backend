@@ -53,10 +53,10 @@ describe("Blog API", () => {
   describe("POST /api/blogs/create", () => {
     it("should create a new blog", (done) => {
       const newBlog = {
-        title: "Test blog",
-        category: "Test category",
-        image: "test-image.png",
-        description: "Test description",
+        title: "Test blog2",
+        category: "Test category2",
+        image: "test-image.png2",
+        description: "Test description2",
       };
       chai
         .request(app)
@@ -66,11 +66,15 @@ describe("Blog API", () => {
         .end((err, res) => {
           expect(res).to.have.status(200);
           expect(res.body).to.be.an("object");
-          expect(res.body.data[0]).to.have.property('title').eql('Test blog');
-          expect(res.body.data[0]).to.have.property('category').eql('Test category');
-          expect(res.body.data[0]).to.have.property('image').eql('test-image.png');
-          expect(res.body.data[0]).to.have.property('description').eql('Test description');
+          expect(res.body.data[0]).to.have.property('title').eql('Test blog2');
+          expect(res.body.data[0]).to.have.property('category').eql('Test category2');
+          expect(res.body.data[0]).to.have.property('image').eql('test-image.png2');
+          expect(res.body.data[0]).to.have.property('description').eql('Test description2');
           newBlog._id = res.body.data[0]._id;
+
+          console.log('########################################################')
+          console.log(res.body['data'])
+          console.log('########################################################')
           done();
         });
     });
@@ -106,30 +110,28 @@ describe("Blog API", () => {
   });
 
   describe("DELETE /api/blog/delete/:id", () => {
-    /* it("should delete an existing blog", (done) => {
+    it("should delete an existing blog", (done) => {
+
       const blogIdToDelete = blogId;
-    
-     chai
+
+      chai
         .request(app)
         .delete(`/api/blog/delete/${blogIdToDelete}`)
         .end((err, res) => {
-          console.log(res)
-       expect(res).to.have.status(200); 
-        /*   expect(res.body).to.be.an("object"); */
+         expect(res).to.have.status(200);
+          /*   expect(res.body).to.be.an("object"); */
 
-          
-                  /*   expect(res.body.message).to.eql('Blog deleted successfully'); */
-         /*  done(); */
-     /*    });
-    }); */
-  }); 
 
+          /*   expect(res.body.message).to.eql('Blog deleted successfully'); */
+          done();
+        });
+    });
+  });
 });
-
 
 describe("Project API", () => {
 
-  
+
   const newBlog = {
     title: "Test blog",
     image: "test-image.png",
@@ -143,7 +145,7 @@ describe("Project API", () => {
         .get("/api/Project")
         .end((err, res) => {
           expect(res).to.have.status(200);
-           done();
+          done();
         });
     });
   });
@@ -167,4 +169,38 @@ describe("Project API", () => {
         });
     });
   });
+
+
+  // Test the POST /api/project/create route
+  describe("POST /api/project/create", () => {
+    it("should create a new project", (done) => {
+      const newProject = {
+        title: "Test Project2",
+        image: "test-image.png2",
+        description: "Test description2",
+      };
+      chai
+        .request(app)
+        .post("/api/project/create")
+        .send(newProject)
+        .end((err, res) => {
+         
+         expect(res).to.have.status(200);
+          expect(res.body).to.be.an("object");
+          expect(res.body.data[0]).to.have.property('title').eql('Test Project2');
+          expect(res.body.data[0]).to.have.property('image').eql('test-image.png2');
+          expect(res.body.data[0]).to.have.property('description').eql('Test description2');
+          newProject._id = res.body.data[0]._id;
+          console.log('########################################################')
+          console.log(res.status)
+          console.log('########################################################')
+           //*  */
+        
+      });
+      done();
+  });  
+
+  });
+
+
 });
