@@ -12,9 +12,7 @@
     "pretest": "node cleanup.js",
     "build": "webpack"
   },
-  "jest": {
-    "testTimeout": 500000
-  },
+
   "author": "Darius",
   "license": "ISC",
   "dependencies": {
