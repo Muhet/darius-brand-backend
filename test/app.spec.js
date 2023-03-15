@@ -8,42 +8,42 @@ chai.should();
 
 describe("Blog API", () => {
 
- // Test the GET /api/blogs route
- describe("GET /api/blogs", () => {
-  it("should return all blogs", (done) => {
-    chai
-      .request(app)
-      .get("/api/blogs")
-      .end((err, res) => {
-        expect(res).to.have.status(200);
-        /* console.log(res.body['data']); */
-        
-      });
+  // Test the GET /api/blogs route
+  describe("GET /api/blogs", () => {
+    it("should return all blogs", (done) => {
+      chai
+        .request(app)
+        .get("/api/blogs")
+        .end((err, res) => {
+          expect(res).to.have.status(200);
+          /* console.log(res.body['data']); */
+
+        });
       done();
+    });
   });
-});
 
- // Test the GET /api/blogs/:id route
- describe("GET /api/blog/:id", () => {
+  // Test the GET /api/blogs/:id route
+  describe("GET /api/blog/:id", () => {
 
-  it("should return a single blog", (done) => {
-    const blogId = "64111c016a32f8c3fc43e58b";
-    chai
-      .request(app)
-      .get(`/api/blog/${blogId}`)
-      .end((err, res) => {
-        expect(res).to.have.status(200);
-        expect(res.body).to.be.an("object");
-        
-        res.body.data['title'];
-        res.body.data['category'];
-        res.body.data['image'];
-        res.body.data['description'];
-        res.body.data['createdAt'];
-       });
-       done(); 
+    it("should return a single blog", (done) => {
+      const blogId = "64111c016a32f8c3fc43e58b";
+      chai
+        .request(app)
+        .get(`/api/blog/${blogId}`)
+        .end((err, res) => {
+          expect(res).to.have.status(200);
+          expect(res.body).to.be.an("object");
+
+          res.body.data['title'];
+          res.body.data['category'];
+          res.body.data['image'];
+          res.body.data['description'];
+          res.body.data['createdAt'];
+        });
+      done();
+    });
   });
-});
 
   describe("POST /blogs/create", () => {
     it("should create a new project", (done) => {
@@ -58,8 +58,8 @@ describe("Blog API", () => {
         .post("/api/blogs/create")
         .send(newBlog)
         .end((err, res) => {
-           
-         expect(res).to.have.status(200);
+
+          expect(res).to.have.status(200);
           expect(res.body).to.be.an("object");
           expect(res.body.data[0]).to.have.property('title').eql('Test Title');
           expect(res.body.data[0]).to.have.property('category').eql('Test Category');
@@ -69,16 +69,16 @@ describe("Blog API", () => {
           console.log('########################################################')
           console.log(res.status)
           console.log('########################################################')
-           //*  */
-        
-      });
+          //*  */
+
+        });
       done();
-  });  
+    });
 
   });
 
-   // Test the PUT /api/blogs/update/:id route
-   describe("PUT /api/blog/update/:id", () => {
+  // Test the PUT /api/blogs/update/:id route
+  describe("PUT /api/blog/update/:id", () => {
     it("should update an existing blog", (done) => {
       const blogId = "64111c016a32f8c3fc43e58b";
       const updatedBlog = {
@@ -101,7 +101,28 @@ describe("Blog API", () => {
           expect(res.body.data).to.have.property('description').eql('Updated test description');
 
 
-          
+
+        });
+      done();
+    });
+  });
+
+  // Test the GET /api/project/:id route
+  describe("GET /api/project/:id", () => {
+
+    it("should return a single Project", (done) => {
+      const projectId = "6410c37d5f9ec1efaa4a5b3c";
+      chai
+        .request(app)
+        .get(`/api/project/${projectId}`)
+        .end((err, res) => {
+          expect(res).to.have.status(200);
+          expect(res.body).to.be.an("object");
+          res.body.data['title'];
+          res.body.data['image'];
+          res.body.data['description'];
+          res.body.data['createdAt'];
+         
         });
         done();
     });
@@ -120,21 +141,17 @@ describe("Blog API", () => {
         .post("/api/project/create")
         .send(newProject)
         .end((err, res) => {
-           
-         expect(res).to.have.status(200);
+
+          expect(res).to.have.status(200);
           expect(res.body).to.be.an("object");
           expect(res.body.data[0]).to.have.property('title').eql('Test Project2');
           expect(res.body.data[0]).to.have.property('image').eql('test-image.png2');
           expect(res.body.data[0]).to.have.property('description').eql('Test description2');
           newProject._id = res.body.data[0]._id;
-          console.log('########################################################')
-          console.log(res.status)
-          console.log('########################################################')
-           //*  */
-        
-      });
+
+        });
       done();
-  });  
+    });
 
   });
 
