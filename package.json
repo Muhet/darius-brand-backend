@@ -7,8 +7,10 @@
   "scripts": {
     "start": "node src/server.js",
     "dev": "nodemon babel-node src/server.js",
-    "test": "jest tests/",
-    "pretest": "node cleanup.js"
+    "test": "mocha --timeout 10000 --exit test/",
+
+    "pretest": "node cleanup.js",
+    "build": "webpack"
   },
   "jest": {
     "testTimeout": 500000
@@ -16,10 +18,8 @@
   "author": "Darius",
   "license": "ISC",
   "dependencies": {
-    "@babel/cli": "^7.21.0",
-    "@babel/core": "^7.21.0",
-    "@babel/preset-env": "^7.20.2",
-    "babel": "^6.23.0",
+    "jest": "^29.5.0",
+    "supertest": "^6.3.3",
     "bcrypt": "^5.1.0",
     "body-parser": "^1.20.2",
     "cookie-parser": "^1.4.6",
@@ -33,12 +33,26 @@
     "mongoose": "^6.10.0",
     "morgan": "^1.10.0",
     "nanoid": "^4.0.1",
-    "supertest": "^6.3.3",
     "swagger-jsdoc": "^6.2.8",
     "swagger-ui-express": "^4.6.2"
   },
   "devDependencies": {
-    "jest": "^29.4.3",
-    "nodemon": "^2.0.20"
-  }
+    "chai": "^4.3.7",
+    "chai-http": "^4.3.0",
+    "mocha": "^10.2.0",
+    "nodemon": "^2.0.20",
+    "supertest": "^6.3.3"
+  },
+  "directories": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Muhet/darius-brand-backend.git"
+  },
+  "keywords": [],
+  "bugs": {
+    "url": "https://github.com/Muhet/darius-brand-backend/issues"
+  },
+  "homepage": "https://github.com/Muhet/darius-brand-backend#readme"
 }
