@@ -49,7 +49,7 @@ describe("Blog API", () => {
 
 
   describe("POST /blogs/create", () => {
-    it("should create a new project", (done) => {
+    it("should create a new Blog", (done) => {
       const newBlog = {
         title: "Test Title",
         category: "Test Category",
