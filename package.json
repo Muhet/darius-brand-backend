@@ -1,7 +1,7 @@
 {
     "name": "mybrand.darius.api",
     "version": "1.0.0",
-    "description": "CRUD",
+    "description": "PORTFOLIO CRUD",
     "main": "server.js",
     "type": "module",
     "scripts": {
