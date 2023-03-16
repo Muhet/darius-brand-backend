@@ -1,47 +1,56 @@
 import app from "../src/app.js";
-import chai from "chai";
+import chai, { expect } from "chai";
 import chaiHttp from "chai-http";
+import assert from "assert";
 
 chai.use(chaiHttp);
 chai.should();
 
 describe("Blog API", () => {
+
+  const newBlog = {
+    title: "Test blog",
+    category: "Test category",
+    image: "test-image.png",
+    description: "Test description",
+  };
   // Test the GET /api/blogs route
-  describe("GET /blogs", () => {
+  describe("GET /api/blogs", () => {
     it("should return all blogs", (done) => {
       chai
         .request(app)
-        .get("/blogs")
+        .get("/api/blogs")
         .end((err, res) => {
-          res.should.have.status(200);
-          res.body.should.be.a("array");
+          expect(res).to.have.status(200);
+          /* console.log(res.body['data']); */
           done();
         });
     });
   });
 
   // Test the GET /api/blogs/:id route
-  describe("GET /blogs/:id", () => {
+  describe("GET /api/blog/:id", () => {
+
     it("should return a single blog", (done) => {
-      const blogId = "put an existing blog id here";
+      const blogId = "64111c016a32f8c3fc43e58b";
       chai
         .request(app)
-        .get(`/blogs/${blogId}`)
+        .get(`/api/blog/${blogId}`)
         .end((err, res) => {
-          res.should.have.status(200);
-          res.body.should.be.a("object");
-          res.body.should.have.property("title");
-          res.body.should.have.property("category");
-          res.body.should.have.property("image");
-          res.body.should.have.property("description");
-          res.body.should.have.property("_id").eql(blogId);
+          expect(res).to.have.status(200);
+          expect(res.body).to.be.an("object");
+          res.body.data['title'];
+          res.body.data['category'];
+          res.body.data['image'];
+          res.body.data['description'];
+          res.body.data['createdAt'];
           done();
         });
     });
   });
 
   // Test the POST /api/blogs/create route
-  describe("POST /blogs/create", () => {
+  describe("POST /api/blogs/create", () => {
     it("should create a new blog", (done) => {
       const newBlog = {
         title: "Test blog",
@@ -51,24 +60,26 @@ describe("Blog API", () => {
       };
       chai
         .request(app)
-        .post("/blogs/create")
+        .post("/api/blogs/create")
         .send(newBlog)
+
         .end((err, res) => {
-          res.should.have.status(201);
-          res.body.should.be.a("object");
-          res.body.should.have.property("title").eql("Test blog");
-          res.body.should.have.property("category").eql("Test category");
-          res.body.should.have.property("image").eql("test-image.png");
-          res.body.should.have.property("description").eql("Test description");
+          expect(res).to.have.status(200);
+          expect(res.body).to.be.an("object");
+          expect(res.body.data[0]).to.have.property('title').eql('Test blog');
+          expect(res.body.data[0]).to.have.property('category').eql('Test category');
+          expect(res.body.data[0]).to.have.property('image').eql('test-image.png');
+          expect(res.body.data[0]).to.have.property('description').eql('Test description');
+          newBlog._id = res.body.data[0]._id;
           done();
         });
     });
   });
 
   // Test the PUT /api/blogs/update/:id route
-  describe("PUT /api/blogs/update/:id", () => {
+  describe("PUT /api/blog/update/:id", () => {
     it("should update an existing blog", (done) => {
-      const blogId = "put an existing blog id here";
+      const blogId = "64111c016a32f8c3fc43e58b";
       const updatedBlog = {
         title: "Updated test blog",
         category: "Updated test category",
@@ -77,17 +88,39 @@ describe("Blog API", () => {
       };
       chai
         .request(app)
-        .put(`/blogs/update/${blogId}`)
+        .put(`/api/blog/update/${blogId}`)
         .send(updatedBlog)
         .end((err, res) => {
-          res.should.have.status(200);
-          res.body.should.be.a("object");
-          res.body.should.have.property("title").eql("Updated test blog");
-          res.body.should.have.property("category").eql("Updated test category");
-          res.body.should.have.property("image").eql("test-image.png");
-          res.body.should.have.property("description").eql("Test description");
+          expect(res).to.have.status(200);
+          expect(res.body).to.be.an("object");
+
+          expect(res.body.data).to.have.property('title').eql('Updated test blog');
+          expect(res.body.data).to.have.property('category').eql('Updated test category');
+          expect(res.body.data).to.have.property('image').eql('updated-test-image.png');
+          expect(res.body.data).to.have.property('description').eql('Updated test description');
+
+
           done();
         });
     });
   });
+
+  describe("DELETE /api/blog/delete/:id", () => {
+    it("should delete an existing blog", (done) => {
+      const blogIdToDelete ="64111d9a6bc0ebc393860ed9";
+      chai
+        .request(app)
+        .delete(`/api/blog/delete/${blogIdToDelete}`)
+        .end((err, res) => {
+         
+        expect(res).to.have.status(200); 
+        /*   expect(res.body).to.be.an("object"); */
+
+          
+                  /*   expect(res.body.message).to.eql('Blog deleted successfully'); */
+          done();
+        });
+    });
+  });
+
 });

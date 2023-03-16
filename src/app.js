@@ -13,6 +13,7 @@ import logoutRoutes from "./routes/logoutRoute.js";
 import messageRoutes from "./routes/messageRoute.js";;
 import projectRoutes from "./routes/projectRoute.js";
 import userRoutes from "./routes/userRoutes.js";
+import commentRoutes from "./routes/commentRoute.js";
 /* import commentRoutes from "./routes/commentRoute.js"; */
 
 
@@ -37,17 +38,17 @@ app.get("/", (req, res) => {
 // Connect to MongoDB database
 mongoose.set('strictQuery', false); // Allow for more flexible queries
 let con = null;
-if (process.env.NODE_ENV === "test") {
+/* if (process.env.NODE_ENV === "test") {
     con = mongoose.connect(process.env.MONGODB_URL_TEST, {
         useNewUrlParser: true,
         useUnifiedTopology: true
     });
-} else {
-    con = mongoose.connect(process.env.MONGODB_URL, {
+} */ /* else { */
+  con = mongoose.connect(process.env.MONGODB_URL, {
         useNewUrlParser: true,
         useUnifiedTopology: true
     });
-}
+/* } */
 if (con) {
     console.log('Database has been connected')
 }
@@ -59,6 +60,7 @@ app.use("/api", logoutRoutes);
 app.use("/api", projectRoutes);
 app.use("/api", messageRoutes);
 app.use("/api", userRoutes );
+app.use('/api', commentRoutes)
 /* app.use("/api", commentRoutes ); */
 
  
