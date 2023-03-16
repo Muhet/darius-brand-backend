@@ -9,7 +9,7 @@
         "dev": "nodemon babel-node src/server.js",
         "test": "mocha --timeout 50000 --exit ",
         "pretest": "node cleanup.js",
-        "build": "npm install && echo 'Builld successfull "
+        "build": "npm install && echo `Builld successfull`"
     },
     "keywords": [
         "nodejs",
