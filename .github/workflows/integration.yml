@@ -6,6 +6,7 @@ on:
     branches:
       - new-githubActions
       - main
+      - ft-the-hell-is-here
       
 jobs:
   build:
