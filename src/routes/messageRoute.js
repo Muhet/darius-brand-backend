@@ -13,5 +13,6 @@ router.delete("/message/delete/:id",  messageContoller.deleteMessage);
 
 
 
-export default router
+export default router;
+
 
