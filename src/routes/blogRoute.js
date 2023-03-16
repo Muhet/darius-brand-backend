@@ -10,4 +10,4 @@ router.post("/blogs/create", blogController.createBlog);
 router.put("/blog/update/:id", blogController.updateBlog);
 router.delete("/blog/delete/:id", blogController.deleteBlog);
 
-export default router
+export default router;
