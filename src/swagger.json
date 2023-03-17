@@ -4,14 +4,13 @@
     "title": "Darius-Brand-API",
     "description": "API description in Markdown.",
     "version": "1.0.0"
-   
   },
   "host": "localhost:3000",
   "basePath": "/api",
- "schemes": [
+  "schemes": [
     "http"
   ],
-"paths": {
+  "paths": {
     "/login": {
       "post": {
         "tags": [
@@ -196,13 +195,16 @@
         }
       }
     },
-  
     "/user/update/{id}": {
       "put": {
-        "tags": ["User"],
+        "tags": [
+          "User"
+        ],
         "summary": "Update a user's email",
         "description": "",
-        "produces": ["application/json"],
+        "produces": [
+          "application/json"
+        ],
         "parameters": [
           {
             "name": "token",
@@ -241,7 +243,6 @@
         }
       }
     },
-
     "/user/delete/{id}": {
       "delete": {
         "tags": [
@@ -408,10 +409,14 @@
     },
     "/blog/update/{id}": {
       "put": {
-        "tags": ["Blog"],
+        "tags": [
+          "Blog"
+        ],
         "summary": "Update a blog post",
         "description": "",
-        "produces": ["application/json"],
+        "produces": [
+          "application/json"
+        ],
         "parameters": [
           {
             "name": "id",
@@ -486,6 +491,143 @@
             "name": "id",
             "in": "path",
             "description": "Id of the blog post",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "/BlogPost"
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": ""
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": ""
+            }
+          }
+        }
+      }
+    },
+    "/blog/create/{id}/comments": {
+      "post": {
+        "tags": [
+          "Comments"
+        ],
+        "summary": "The creation of new comment",
+        "description": "",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Id of the blog post",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "commentBody",
+            "in": "formData",
+            "description": "Where the comment written",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": ""
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": ""
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": ""
+            }
+          }
+        }
+      }
+    },
+    "/blog/{id}/comments": {
+      "get": {
+        "tags": [
+          "Comments"
+        ],
+        "summary": "Get a comments post by id",
+        "description": "",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Id of the blog post",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": ""
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": ""
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": ""
+            }
+          }
+        }
+      }
+    },
+    "/blog/{blogId}/comments/{commentId}": {
+      "delete": {
+        "tags": [
+          "Comments"
+        ],
+        "summary": "Delete a comment under blog id post",
+        "description": "",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "blogId",
+            "in": "path",
+            "description": "Id of the blog",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "commentId",
+            "in": "path",
+            "description": "Id of the comment",
             "required": true,
             "type": "string"
           }
@@ -641,14 +783,16 @@
         }
       }
     },
-   
-
     "/project/update/{id}": {
       "put": {
-        "tags": ["Project"],
+        "tags": [
+          "Project"
+        ],
         "summary": "Update a project post",
         "description": "",
-        "produces": ["application/json"],
+        "produces": [
+          "application/json"
+        ],
         "parameters": [
           {
             "name": "id",
@@ -664,7 +808,6 @@
             "required": true,
             "type": "string"
           },
-         
           {
             "name": "image",
             "in": "formData",
@@ -702,7 +845,7 @@
         }
       }
     },
-  "/project/delete/{id}": {
+    "/project/delete/{id}": {
       "delete": {
         "tags": [
           "Project"

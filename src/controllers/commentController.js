@@ -33,6 +33,24 @@ export const getComments = async (req, res, next) => {
     next(err);
   }
 };
+//Get all comments
+export const getAllComments = async (req, res, next) => {
+ const allComments = req.body;
+    try {
+if(!allComments){
+res.status(404).json({"status": "failled", "code": 404, "message": "No comment in DataBase"});
+return;
+}
+  const comments = await Comment.find({}).sort({_id: -1}).limit(10);
+      res.status(200).json({"status": "success","code": 200,"message": "All Blog posts", data: comments});
+        
+    } catch (error) {
+      console.log(error)
+      res.status(500).json({'status': 'fail','code': 500, "message" : "Error", "data": null});
+    }
+  }
+
+
 
 // Delete a comment
 export const deleteComment = async (req, res, next) => {
