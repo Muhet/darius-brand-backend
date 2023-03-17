@@ -33,7 +33,7 @@ export const getComments = async (req, res, next) => {
     next(err);
   }
 };
-//Get all comments
+//Get all comments//
 export const getAllComments = async (req, res, next) => {
  const allComments = req.body;
     try {
