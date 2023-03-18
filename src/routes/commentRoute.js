@@ -8,4 +8,4 @@ router.get('/comments', getAllComments)
 router.get("/blog/:blogId/comments", getComments);
 router.delete("/blog/:blogId/comments/:commentId", deleteComment);
 
-export default router
+export default router;
