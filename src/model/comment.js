@@ -6,6 +6,12 @@ const commentSchema = new mongoose.Schema({
     ref: "Blog",
     required: true,
   },
+  fullName:
+  {
+    type:String,
+    required: true,
+   
+  },
   commentBody: {
     type: String,
     required: true,

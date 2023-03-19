@@ -1,6 +1,6 @@
 import express from "express";
 import messageContoller from "../controllers/messageController.js";
-import authMiddleware from "../middleware/authMiddleware.js";
+
 
 
 

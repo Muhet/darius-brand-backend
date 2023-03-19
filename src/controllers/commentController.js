@@ -12,7 +12,9 @@ export const createComment = async (req, res, next) => {
 
     const comment = new Comment({
       blog: req.params.blogId,
+      fullName: req.body.fullName,
       commentBody: req.body.commentBody,
+
     });
 
     const savedComment = await comment.save();
