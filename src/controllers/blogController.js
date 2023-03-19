@@ -46,10 +46,10 @@ return;
       if(!(newBlogPost)){
         res.status(400).json({'status': 'fail','code': 400,'message' : "Please fill all required data", "data": null});
         return;
-      }
+      }else{
       const newBlog = await Blog.create([newBlogPost]);
       res.status(200).json({"status": "success","code": 200,"message": "Blog post created !!", data: newBlog});
-      
+      }
     } catch (error) {
       console.log(error)
       res.status(500).json({'status': 'fail','code': 500, "message" : "Error", "data": null});
