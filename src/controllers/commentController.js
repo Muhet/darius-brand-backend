@@ -4,6 +4,7 @@ import Joi from "joi";
 
 // Create a comment
 export const createComment = async (req, res, next) => {
+
   try {
     const { error } = validateComment(req.body);
     if (error) {
