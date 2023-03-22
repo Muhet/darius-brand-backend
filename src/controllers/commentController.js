@@ -13,16 +13,30 @@ export const createComment = async (req, res, next) => {
 
     const comment = new Comment({
       blog: req.params.blogId,
+      fullNames:req.body.fullNames,
       commentBody: req.body.commentBody,
     });
 
     const savedComment = await comment.save();
-
+console.log(savedComment)
     res.status(201).json(savedComment);
   } catch (err) {
     next(err);
   }
 };
+// Get all the comment in General
+export const getAllComments = async (req, res, next) => {
+  try {
+    const comments = await Comment.find();
+    res.status(200).json({
+      data: comments
+    });
+  } catch (error) {
+    const messageContent = error.message;
+    const status = 500;
+    errorFunc(res, messageContent, status);
+  }
+}
 
 // Get all comments for a blog
 export const getComments = async (req, res, next) => {
