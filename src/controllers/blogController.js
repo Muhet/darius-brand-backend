@@ -59,7 +59,7 @@ return;
   // update blog
   static async updateBlog(req, res) {
     try {
-      const { id } = req.params; // using ES6
+      const { id } = req.params; 
 
       // body to be update
       const { title, category, image, description } = req.body;
